@@ -58,18 +58,12 @@ var World = function() {
 
 
     sphere1 = new THREE.Mesh(new THREE.SphereGeometry(20, 30, 15), shinyMaterial);
-    scene.add(sphere1);
+    //scene.add(sphere1);
 
     sphere2 = new THREE.Mesh(new THREE.SphereGeometry(25, 20, 20), shinyMaterial);
-    scene.add(sphere2);
-
-    sphere3 = new THREE.Mesh(new THREE.SphereGeometry(25, 35, 25), material);
-    scene.add(sphere3);
+    //scene.add(sphere2);
 
 
-
-
-    //
 
     document.addEventListener('mousedown', onDocumentMouseDown, false);
     document.addEventListener('mousewheel', onDocumentMouseWheel, false);
@@ -160,10 +154,8 @@ var World = function() {
 
     sphere1.position.x = Math.sin(time * 0.001) * 30;
     sphere1.position.y = Math.sin(time * 0.0011) * 30;
-    sphere2.position.z = Math.sin(time * 0.0012) * 30;
+    sphere1.position.z = Math.sin(time * 0.0012) * 30;
 
-    sphere1.rotation.x += 0.02;
-    sphere1.rotation.y += 0.03;
 
    
 
@@ -171,10 +163,8 @@ var World = function() {
     camera.position.y = 100 * Math.cos(phi);
     camera.position.z = 100 * Math.sin(phi) * Math.sin(theta);
 
-    camera.lookAt(scene.position);
-    if(time %20 === 0){
-      console.log(scene.position);
-    }
+    //camera.lookAt(scene.position);
+
 
     sphere1.visible = false; // *cough*
 
