@@ -50,20 +50,10 @@ var World = function() {
     scene.add( light2 );
     light2.position = new THREE.Vector3(10, 10, 10);
 
-    var material = new THREE.MeshBasicMaterial({
-      envMap: cubeCamera.renderTarget
-    });
-    var cubeTarget = cubeCamera.renderTarget;
-    var shinyMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff, ambient: 0xffffff, envMap: cubeTarget  } );
 
+  
 
-    sphere1 = new THREE.Mesh(new THREE.SphereGeometry(20, 30, 15), shinyMaterial);
-    scene.add(sphere1);
-
-    sphere2 = new THREE.Mesh(new THREE.SphereGeometry(25, 20, 20), shinyMaterial);
-    scene.add(sphere2);
-
-
+    createSpheres();
 
     document.addEventListener('mousedown', onDocumentMouseDown, false);
     document.addEventListener('mousewheel', onDocumentMouseWheel, false);
@@ -173,6 +163,17 @@ var World = function() {
     sphere1.visible = true; // *cough*
 
     renderer.render(scene, camera);
+
+  }
+
+  function createSpheres(){
+    var cubeTarget = cubeCamera.renderTarget;
+    var shinyMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff, ambient: 0xffffff, envMap: cubeTarget  } );
+    sphere1 = new THREE.Mesh(new THREE.SphereGeometry(20, 30, 15), shinyMaterial);
+    scene.add(sphere1);
+
+    sphere2 = new THREE.Mesh(new THREE.SphereGeometry(20, 30, 15), shinyMaterial);
+    scene.add(sphere2);
 
   }
 
