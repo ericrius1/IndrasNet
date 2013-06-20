@@ -1,6 +1,6 @@
 {
   "name": "VoiceLights",
-  "subdomain": "ericrius1-VoiceLights",
+  "subdomain": "ericrius1-PartiDraw",
   "scripts": {
     "start": "node server.js"
   },

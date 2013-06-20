@@ -7,45 +7,22 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="lib/TrackballControls.js"></script>
   <script src="lib/tween.js"></script>
-  <script src="js/pitchdetect.js"></script>
+  <script src="lib/detector.js"></script>
   <script src="lib/stats.min.js"></script>
-  <script src="js/light.js"></script>
   <script src="lib/utils.js"></script>
   <script src="js/comm.js"></script>
   <script src="js/world.js"></script>
 
 <style>
-  #stats { position: absolute; top:0; left: 0 }
-  #stats #fps { background: transparent !important }
-  #stats #fps #fpsText { color: #aaa !important }
-  #stats #fps #fpsGraph { display: none }
-  #note { font-size: 164px; }
-  .droptarget { background-color: #348781}
-  div.confident { color: black; }
-  div.vague { color: lightgrey; }
-  #note { display: inline-block; width: 1em; text-align: left;}
-
-  #detector { width: 300px; height: 300px; border: 4px solid gray; border-radius: 8px; text-align: center;}
-  #flat { display: none; }
-  #sharp { display: none; }
-  .flat #flat { display: inline; }
-  .sharp #sharp { display: inline; }
+ 
 </style>
 
 <body>
-<!--<button onclick="updatePitch(0);">sample</button>-->
-<div id = 'container'></div>
-<div id="detector" class="vague">
-<canvas id="output"></canvas>
-<div class="pitch"><span id="pitch">--</span>Hz</div>
-<div class="note"><span id="note">--</span></div>   
-<div id="detune"><span id="detune_amt">--</span><span id="flat">cents &#9837;</span><span id="sharp">cents &#9839;</span></div>
-</div>
+
 
 </body>
 
 
 <script> 
-  world = new World();
-  world.init();
+  var world = new World();
 </script>
