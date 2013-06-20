@@ -1,7 +1,6 @@
 var World = function() {
   var camera, cubeCamera, scene, renderer;
-  var cube, sphere, torus;
-
+  var sphere1, sphere2, sphere3;
   var fov = 70,
     isUserInteracting = false,
     onMouseDownMouseX = 0,
@@ -49,14 +48,9 @@ var World = function() {
       envMap: cubeCamera.renderTarget
     });
 
-    sphere = new THREE.Mesh(new THREE.SphereGeometry(20, 30, 15), material);
-    scene.add(sphere);
+    sphere1 = new THREE.Mesh(new THREE.SphereGeometry(20, 30, 15), material);
+    scene.add(sphere1);
 
-    cube = new THREE.Mesh(new THREE.CubeGeometry(20, 20, 20), material);
-    scene.add(cube);
-
-    torus = new THREE.Mesh(new THREE.TorusKnotGeometry(20, 5, 100, 25), material);
-    scene.add(torus);
 
     //
 
@@ -147,26 +141,14 @@ var World = function() {
     phi = THREE.Math.degToRad(90 - lat);
     theta = THREE.Math.degToRad(lon);
 
-    sphere.position.x = Math.sin(time * 0.001) * 30;
-    sphere.position.y = Math.sin(time * 0.0011) * 30;
-    sphere.position.z = Math.sin(time * 0.0012) * 30;
+    sphere1.position.x = Math.sin(time * 0.001) * 30;
+    sphere1.position.y = Math.sin(time * 0.0011) * 30;
+    sphere1.position.z = Math.sin(time * 0.0012) * 30;
 
-    sphere.rotation.x += 0.02;
-    sphere.rotation.y += 0.03;
+    sphere1.rotation.x += 0.02;
+    sphere1.rotation.y += 0.03;
 
-    cube.position.x = Math.sin(time * 0.001 + 2) * 30;
-    cube.position.y = Math.sin(time * 0.0011 + 2) * 30;
-    cube.position.z = Math.sin(time * 0.0012 + 2) * 30;
-
-    cube.rotation.x += 0.02;
-    cube.rotation.y += 0.03;
-
-    torus.position.x = Math.sin(time * 0.001 + 4) * 30;
-    torus.position.y = Math.sin(time * 0.0011 + 4) * 30;
-    torus.position.z = Math.sin(time * 0.0012 + 4) * 30;
-
-    torus.rotation.x += 0.02;
-    torus.rotation.y += 0.03;
+   
 
     camera.position.x = 100 * Math.sin(phi) * Math.cos(theta);
     camera.position.y = 100 * Math.cos(phi);
@@ -174,11 +156,11 @@ var World = function() {
 
     camera.lookAt(scene.position);
 
-    sphere.visible = false; // *cough*
+    sphere1.visible = false; // *cough*
 
     cubeCamera.updateCubeMap(renderer, scene);
 
-    sphere.visible = true; // *cough*
+    sphere1.visible = true; // *cough*
 
     renderer.render(scene, camera);
 
