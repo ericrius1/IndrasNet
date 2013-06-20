@@ -1,6 +1,5 @@
 var World = function() {
   var camera, cubeCamera, scene, renderer;
-  var sphere1, sphere2, sphere3;
   var fov = 70,
     isUserInteracting = false,
     onMouseDownMouseX = 0,
@@ -42,7 +41,7 @@ var World = function() {
     document.body.appendChild(renderer.domElement);
 
     //LIGHTS
-    var light1 = new THREE.AmbientLight( 0xffffff, 20, 50 );
+    var light1 = new THREE.AmbientLight( 0xffffff, 50, 50 );
     scene.add( light1 );
     light1.position = new THREE.Vector3(10, 10, 10);
 
@@ -142,9 +141,9 @@ var World = function() {
     phi = THREE.Math.degToRad(90 - lat);
     theta = THREE.Math.degToRad(lon);
 
-    sphere1.position.x = Math.sin(time * 0.001) * 30;
-    sphere1.position.y = Math.sin(time * 0.0011) * 30;
-    sphere1.position.z = Math.sin(time * 0.0012) * 30;
+    // sphere1.position.x = Math.sin(time * 0.001) * 30;
+    // sphere1.position.y = Math.sin(time * 0.0011) * 30;
+    // sphere1.position.z = Math.sin(time * 0.0012) * 30;
 
 
    
@@ -156,11 +155,11 @@ var World = function() {
     camera.lookAt(scene.position);
 
 
-    sphere1.visible = false; // *cough*
+    // sphere1.visible = false; // *cough*
 
     cubeCamera.updateCubeMap(renderer, scene);
 
-    sphere1.visible = true; // *cough*
+    // sphere1.visible = true; // *cough*
 
     renderer.render(scene, camera);
 
@@ -169,11 +168,17 @@ var World = function() {
   function createSpheres(){
     var cubeTarget = cubeCamera.renderTarget;
     var shinyMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff, ambient: 0xffffff, envMap: cubeTarget  } );
-    sphere1 = new THREE.Mesh(new THREE.SphereGeometry(20, 30, 15), shinyMaterial);
-    scene.add(sphere1);
-
-    sphere2 = new THREE.Mesh(new THREE.SphereGeometry(20, 30, 15), shinyMaterial);
-    scene.add(sphere2);
+    var sphereRadius = 20;
+    var spacing = sphereRadius * 3;
+    var sphere;
+    var i = 1;
+    for(var x = -20; x <100; x+=spacing){
+      sphere = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 30, 15 * i), shinyMaterial);
+      sphere.position.x = x;
+      scene.add(sphere);
+    }
+    // sphere1 = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 30, 15), shinyMaterial);
+    // scene.add(sphere1);
 
   }
 
