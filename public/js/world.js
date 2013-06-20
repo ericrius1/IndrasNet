@@ -172,7 +172,7 @@ var World = function() {
     var spacing = sphereRadius * 3;
     var sphere;
     var i = 1;
-    for(var x = -20; x <100; x+=spacing){
+    for(var x = -20; x <400; x+=spacing){
       sphere = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 30, 15 * i), shinyMaterial);
       sphere.position.x = x;
       scene.add(sphere);
