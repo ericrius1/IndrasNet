@@ -35,21 +35,38 @@ var World = function() {
       antialias: true
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
-
     cubeCamera = new THREE.CubeCamera(1, 1000, 256);
     cubeCamera.renderTarget.minFilter = THREE.LinearMipMapLinearFilter;
     scene.add(cubeCamera);
 
     document.body.appendChild(renderer.domElement);
 
-    //
+    //LIGHTS
+    var light1 = new THREE.AmbientLight( 0xffffff, 20, 50 );
+    scene.add( light1 );
+    light1.position = new THREE.Vector3(10, 10, 10);
+
+    var light2 = new THREE.PointLight( 0xff00ff, 20, 50 );
+    scene.add( light2 );
+    light2.position = new THREE.Vector3(10, 10, 10);
 
     var material = new THREE.MeshBasicMaterial({
       envMap: cubeCamera.renderTarget
     });
+    var cubeTarget = cubeCamera.renderTarget;
+    var shinyMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff, ambient: 0xffffff, envMap: cubeTarget  } );
 
-    sphere1 = new THREE.Mesh(new THREE.SphereGeometry(20, 30, 15), material);
+
+    sphere1 = new THREE.Mesh(new THREE.SphereGeometry(20, 30, 15), shinyMaterial);
     scene.add(sphere1);
+
+    sphere2 = new THREE.Mesh(new THREE.SphereGeometry(25, 20, 20), shinyMaterial);
+    scene.add(sphere2);
+
+    sphere3 = new THREE.Mesh(new THREE.SphereGeometry(25, 35, 25), material);
+    scene.add(sphere3);
+
+
 
 
     //
@@ -143,7 +160,7 @@ var World = function() {
 
     sphere1.position.x = Math.sin(time * 0.001) * 30;
     sphere1.position.y = Math.sin(time * 0.0011) * 30;
-    sphere1.position.z = Math.sin(time * 0.0012) * 30;
+    sphere2.position.z = Math.sin(time * 0.0012) * 30;
 
     sphere1.rotation.x += 0.02;
     sphere1.rotation.y += 0.03;
@@ -155,6 +172,9 @@ var World = function() {
     camera.position.z = 100 * Math.sin(phi) * Math.sin(theta);
 
     camera.lookAt(scene.position);
+    if(time %20 === 0){
+      console.log(scene.position);
+    }
 
     sphere1.visible = false; // *cough*
 
