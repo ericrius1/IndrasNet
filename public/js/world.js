@@ -58,10 +58,10 @@ var World = function() {
 
 
     sphere1 = new THREE.Mesh(new THREE.SphereGeometry(20, 30, 15), shinyMaterial);
-    //scene.add(sphere1);
+    scene.add(sphere1);
 
     sphere2 = new THREE.Mesh(new THREE.SphereGeometry(25, 20, 20), shinyMaterial);
-    //scene.add(sphere2);
+    scene.add(sphere2);
 
 
 
@@ -146,7 +146,7 @@ var World = function() {
 
     var time = Date.now();
 
-    lon += .15;
+    // lon += .15;
 
     lat = Math.max(-85, Math.min(85, lat));
     phi = THREE.Math.degToRad(90 - lat);
@@ -163,7 +163,7 @@ var World = function() {
     camera.position.y = 100 * Math.cos(phi);
     camera.position.z = 100 * Math.sin(phi) * Math.sin(theta);
 
-    //camera.lookAt(scene.position);
+    camera.lookAt(scene.position);
 
 
     sphere1.visible = false; // *cough*
