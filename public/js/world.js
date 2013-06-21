@@ -128,9 +128,9 @@ var World = function() {
       var randColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
       var light = new THREE.PointLight(randColor, lightIntensity, lightDistance)
       var lightPosition = new THREE.Vector3();
-      lightPosition.x = node.position.x;
-      lightPosition.y = node.position.y;
-      lightPosition.z = node.position.z;
+      lightPosition.x = node.originalPosition.x;
+      lightPosition.y = node.originalPosition.y;
+      lightPosition.z = node.originalPosition.z;
       lights.push({
         originalPosition: lightPosition,
         sceneLight: light
@@ -216,10 +216,9 @@ var World = function() {
       for (var y = begin; y < end; y += spacing) {
         for (var z = begin; z < end; z += spacing) {
           sphere = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 30, 15), shinyMaterial);
-          sphere.position.x = x + Math.random()*20;
-          sphere.position.y = y + Math.random()*20;
-          sphere.position.z = z + Math.random()*20;
-          nodes.push(sphere);
+          var position = new THREE.Vector3(x+Math.random()*20,y+Math.random()*20,z+Math.random()*20);
+          sphere.position.copy(position);
+          nodes.push({originalPosition: position, sphere: sphere});
           scene.add(sphere);
         }
 
