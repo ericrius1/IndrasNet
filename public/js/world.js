@@ -22,7 +22,7 @@ var World = function() {
   var movementSpeed = 11;
   var lookSpeed = .05;
   var lightIntensity = 11.0;
-  var lightDistance = 133;
+  var lightDistance = 155;
   var numNodes;
   var tempNode;
   var time;
@@ -183,7 +183,7 @@ var World = function() {
   }
 
   function render() {
-    time = Date.now() * .0006;
+    time = Date.now() * .0004;
     var delta = clock.getDelta();
     //stats.update();
 
