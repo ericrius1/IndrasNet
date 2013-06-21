@@ -73,7 +73,7 @@ var World = function() {
     var light = new THREE.PointLight(0xff00ff, 20, 50);
     scene.add(light);
     light.position = new THREE.Vector3(10, 10, 10);
-    var lightSphere = new THREE.SphereGeometry( 5.25, 16, 8 );
+    var lightSphere = new THREE.SphereGeometry(5.25, 16, 8);
     var l = new THREE.Mesh(lightSphere, new THREE.MeshBasicMaterial({
       color: 0xff0000
     }));
@@ -86,6 +86,7 @@ var World = function() {
     controls.movementSpeed = 250;
     controls.lookSpeed = 0.2;
     controls.lookVertical = true;
+    controls.freeze;
 
     controls.lon = -90;
 
@@ -177,21 +178,7 @@ var World = function() {
   function render() {
 
     var time = Date.now();
-
-    // lon += .15;
-    lat = Math.max(-85, Math.min(85, lat));
-    phi = THREE.Math.degToRad(90 - lat);
-    theta = THREE.Math.degToRad(lon);
-
-    // camera.position.x = 100 * Math.sin(phi) * Math.cos(theta);
-    // camera.position.y = 100 * Math.cos(phi);
-    // camera.position.z = 100 * Math.sin(phi) * Math.sin(theta);
-
-    //camera.lookAt(scene.position);
-
-
     // sphere1.visible = false; // *cough*
-
     cubeCamera.updateCubeMap(renderer, scene);
 
     // sphere1.visible = true; // *cough*
@@ -210,14 +197,18 @@ var World = function() {
     var sphereRadius = 20;
     var spacing = sphereRadius * 3;
     var sphere;
-    var begin = -1000;
-    var end = 1000
+    var begin = -100;
+    var end = 100
 
     var i = 1;
     for (var x = begin; x < end; x += spacing) {
-      sphere = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 30* i, 15 * i), shinyMaterial);
-      sphere.position.x = x;
-      scene.add(sphere);
+      for (var y = begin; y < end; y += spacing) {
+        sphere = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 30 * i, 15 * i), shinyMaterial);
+        sphere.position.x = x;
+        //sphere.position.y = y;
+        scene.add(sphere);
+      }
+
     }
   }
 
