@@ -1,5 +1,5 @@
 var World = function() {
-  var camera, cubeCamera, scene, renderer, controls;
+  var camera, cubeCamera, cubeMap, scene, renderer, controls;
   var fov = 70,
     isUserInteracting = false,
     onMouseDownMouseX = 0,
@@ -26,9 +26,33 @@ var World = function() {
 
     scene = new THREE.Scene();
 
-    var mesh = new THREE.Mesh(new THREE.SphereGeometry(500, 60, 40), new THREE.MeshBasicMaterial({
-      map: texture
-    }));
+    //SKY BOX
+
+    var urls = [
+        'images/sky1.jpg',
+        'images/sky2.jpg',
+        'images/sky4.jpg',
+        'images/sky3.jpg',
+        'images/sky5.jpg',
+        'images/sky6.jpg'
+    ];
+
+    cubemap = THREE.ImageUtils.
+    loadTextureCube(urls);
+
+
+
+    var envMaterial = new THREE
+      .MeshLambertMaterial({
+      color: 0xffffff,
+      envMap: cubemap
+    });
+
+    // var mesh = new THREE.Mesh(new THREE.SphereGeometry(500, 60, 40), new THREE.MeshBasicMaterial({
+    //   map: texture
+    // }));
+
+    var mesh = new THREE.Mesh(new THREE.SphereGeometry(500, 60, 40), envMaterial);
     mesh.scale.x = -1;
     scene.add(mesh);
 
