@@ -21,12 +21,11 @@ var World = function() {
   var sphereRadius = 20;
 
 
-  var texture = THREE.ImageUtils.loadTexture('images/house.jpg', new THREE.UVMapping(), function() {
 
     init();
     animate();
 
-  });
+
 
   function init() {
 
