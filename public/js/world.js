@@ -11,7 +11,6 @@ var World = function() {
     phi = 0,
     theta = 0;
   var clock = new THREE.Clock();
-  var flyMode = true;
   var envMesh;
   var light;
   var lights = [];
@@ -20,12 +19,8 @@ var World = function() {
   var numLights = 10;
   var sphereRadius = 20;
 
-
-
-    init();
-    animate();
-
-
+  init();
+  animate();
 
   function init() {
 
@@ -88,17 +83,13 @@ var World = function() {
 
     createNodes();
     addLights();
-    if (!flyMode) {
-      document.addEventListener('mousedown', onDocumentMouseDown, false);
-      document.addEventListener('mousewheel', onDocumentMouseWheel, false);
-      document.addEventListener('DOMMouseScroll', onDocumentMouseWheel, false);
-    }
-
     stats = new Stats();
     stats.domElement.style.position = 'absolute';
     stats.domElement.style.top = '0px';
     document.body.appendChild(stats.domElement);
     window.addEventListener('resize', onWindowResized, false);
+    document.addEventListener('mousewheel', onDocumentMouseWheel, false);
+       document.addEventListener('DOMMouseScroll', onDocumentMouseWheel, false);
 
     onWindowResized(null);
 
@@ -113,7 +104,7 @@ var World = function() {
       var lightPosition = new THREE.Vector3();
       lightPosition.x = node.position.x + sphereRadius;
       lightPosition.y = node.position.y;
-      lightPosition.z = node.position.z; 
+      lightPosition.z = node.position.z;
       lights.push({
         originalPosition: lightPosition,
         sceneLight: light
@@ -129,45 +120,19 @@ var World = function() {
     controls.handleResize();
   }
 
-  function onDocumentMouseDown(event) {
-    event.preventDefault();
-
-    onPointerDownPointerX = event.clientX;
-    onPointerDownPointerY = event.clientY;
-
-    onPointerDownLon = lon;
-    onPointerDownLat = lat;
-
-    document.addEventListener('mousemove', onDocumentMouseMove, false);
-    document.addEventListener('mouseup', onDocumentMouseUp, false);
-
-  }
-
-  function onDocumentMouseMove(event) {
-    lon = (event.clientX - onPointerDownPointerX) * 0.1 + onPointerDownLon;
-    lat = (event.clientY - onPointerDownPointerY) * 0.1 + onPointerDownLat;
-
-  }
-
-  function onDocumentMouseUp(event) {
-    document.removeEventListener('mousemove', onDocumentMouseMove, false);
-    document.removeEventListener('mouseup', onDocumentMouseUp, false);
-
-  }
-
   function onDocumentMouseWheel(event) {
 
     // WebKit
 
     if (event.wheelDeltaY) {
 
-      fov -= event.wheelDeltaY * 0.05;
+      fov -= event.wheelDeltaY * 0.005;
 
       // Opera / Explorer 9
 
     } else if (event.wheelDelta) {
 
-      fov -= event.wheelDelta * 0.05;
+      fov -= event.wheelDelta * 0.005;
 
       // Firefox
 
@@ -196,9 +161,9 @@ var World = function() {
 
     for (var i = 0; i < numLights; i++) {
       var light = lights[i];
-      light.sceneLight.position.x = Math.sin(time * 0.7) * 10 + light.originalPosition.x;
-      light.sceneLight.position.y = Math.cos(time * 0.5) * 10+ light.originalPosition.y;
-      light.sceneLight.position.z = Math.cos(time * 0.3)* 10 + light.originalPosition.z;
+      light.sceneLight.position.x = Math.sin(time) * 30 + light.originalPosition.x;
+      light.sceneLight.position.y = Math.cos(time) * 40 + light.originalPosition.y;
+      light.sceneLight.position.z = Math.cos(time) * 30 + light.originalPosition.z;
 
     }
 
