@@ -106,6 +106,9 @@ var World = function() {
     for (var i = 0; i < 10; i++) {
       //add lgihts
       var light = new THREE.PointLight(0xff0011, 20, 70)
+      light.position.x = -200 + Math.random() * 400;
+      light.position.y = -200 + Math.random() * 400;
+      light.position.z = -200 + Math.random() * 400;
       lights.push(light);
       scene.add(light);
 
@@ -188,8 +191,8 @@ var World = function() {
 
     for (var i = 0; i < lights.length; i++) {
       var light = lights[i];
-      light.position.x = Math.sin(time * 0.7) * d + Math.random() * 100;
-      light.position.z = Math.cos(time * 0.3) * d + Math.random() * -100;
+      light.position.x = Math.sin(time * 0.7) * d 
+      light.position.z = Math.cos(time * 0.3) * d 
       light.position.y = Math.cos(time * 0.3) * d;
     }
 
