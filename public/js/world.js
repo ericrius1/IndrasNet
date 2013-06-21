@@ -18,7 +18,7 @@ var World = function() {
   var nodes = [];
   var numLights = 10;
   var sphereRadius = 20;
-  var lightOscilationMod = 0;
+  var lightRange = 0;
 
   var gui, lightConfig = {
     lightOsc: 0.0
@@ -80,7 +80,7 @@ var World = function() {
     controls = new THREE.FirstPersonControls(camera);
 
     controls.movementSpeed = .01;
-    controls.lookSpeed = 0.2;
+    controls.lookSpeed = 0.002;
     controls.freeze;
 
     controls.lon = -90;
@@ -106,9 +106,9 @@ var World = function() {
   function guiSetup() {
     gui = new dat.GUI();
 
-    gui.add(lightConfig, 'lightOsc', 0, 2).onChange(function() {
+    gui.add(lightConfig, 'lightOsc', 0, 2000).onChange(function() {
 
-      lightOscilationMod = lightConfig.lightOsc;
+      lightRange = lightConfig.lightOsc;
 
     });
   }
@@ -179,17 +179,14 @@ var World = function() {
 
     for (var i = 0; i < numLights; i++) {
       var light = lights[i];
-      light.sceneLight.position.x = Math.sin(time) * 30 + light.originalPosition.x;
-      light.sceneLight.position.y = Math.cos(time) * 40 + light.originalPosition.y;
-      light.sceneLight.position.z = Math.cos(time) * 30 + light.originalPosition.z;
+      light.sceneLight.position.x = Math.sin(time ) * 111 + light.originalPosition.x;
+      light.sceneLight.position.y = Math.cos(time ) * 111 + light.originalPosition.y;
+      light.sceneLight.position.z = Math.cos(time ) * 111 + light.originalPosition.z;
 
     }
 
-
-    // sphere1.visible = false; // *cough*
     cubeCamera.updateCubeMap(renderer, scene);
 
-    // sphere1.visible = true; // *cough*
     controls.update(clock.getDelta());
     renderer.render(scene, camera);
 
@@ -211,9 +208,9 @@ var World = function() {
       for (var y = begin; y < end; y += spacing) {
         for (var z = begin; z < end; z += spacing) {
           sphere = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 30, 15), shinyMaterial);
-          sphere.position.x = x;
-          sphere.position.y = y;
-          sphere.position.z = z;
+          sphere.position.x = x + Math.random()*20;
+          sphere.position.y = y + Math.random()*20;
+          sphere.position.z = z + Math.random()*20;
           nodes.push(sphere);
           scene.add(sphere);
         }
