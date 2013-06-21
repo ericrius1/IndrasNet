@@ -12,17 +12,19 @@ var World = function() {
     theta = 0;
   var clock = new THREE.Clock();
   var envMesh;
-  var light;
+  var tempLight;
   var lights = [];
   var frameCounter = 0;
   var nodes = [];
-  var numLights = 10;
+  var numLights = 5;
   var sphereRadius = 20;
   var lightRange = 0;
   var movementSpeed = 11;
   var lookSpeed = .05;
   var lightIntensity= 11.0;
-  var lightDistance = 108;
+  var lightDistance = 133;
+  var numNodes;
+  var time;
 
   var gui, lightConfig = {
     lightIntensity: lightIntensity
@@ -180,16 +182,19 @@ var World = function() {
   }
 
   function render() {
-    var time = Date.now() * 0.0005;
+    time = Date.now() * .0006;
     var delta = clock.getDelta();
-    frameCounter++;
     stats.update();
 
     for (var i = 0; i < numLights; i++) {
-      var light = lights[i];
-      light.sceneLight.position.x = Math.sin(time ) * 111 + light.originalPosition.x;
-      light.sceneLight.position.y = Math.cos(time ) * 111 + light.originalPosition.y;
-      light.sceneLight.position.z = Math.cos(time ) * 111 + light.originalPosition.z;
+      tempLight = lights[i];
+      tempLight.sceneLight.position.x = Math.sin(time) * 111 + tempLight.originalPosition.x;
+      tempLight.sceneLight.position.y = Math.cos(time) * 111 + tempLight.originalPosition.y;
+      tempLight.sceneLight.position.z = Math.cos(time) * 111 + tempLight.originalPosition.z;
+
+    }
+
+    for(var i = 0; i < numNodes; i++){
 
     }
 
@@ -209,8 +214,8 @@ var World = function() {
     });
     var spacing = sphereRadius * 4;
     var sphere;
-    var begin = -400;
-    var end = 400
+    var begin = -300;
+    var end = 300
 
     for (var x = begin; x < end; x += spacing) {
       for (var y = begin; y < end; y += spacing) {
@@ -225,5 +230,6 @@ var World = function() {
       }
 
     }
+    numNodes = nodes.length;
   }
 }
