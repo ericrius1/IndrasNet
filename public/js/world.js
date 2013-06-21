@@ -19,9 +19,13 @@ var World = function() {
   var numLights = 10;
   var sphereRadius = 20;
   var lightRange = 0;
+  var movementSpeed = .01;
+  var lookSpeed = .005;
+  var lightIntensity= 11.0;
+  var lightDistance = 108;
 
   var gui, lightConfig = {
-    lightOsc: 0.0
+    lightIntensity: lightIntensity
   };
 
   init();
@@ -79,8 +83,8 @@ var World = function() {
     //CONTROLS
     controls = new THREE.FirstPersonControls(camera);
 
-    controls.movementSpeed = .01;
-    controls.lookSpeed = 0.002;
+    controls.movementSpeed = movementSpeed;
+    controls.lookSpeed = lookSpeed;
     controls.freeze;
 
     controls.lon = -90;
@@ -106,9 +110,13 @@ var World = function() {
   function guiSetup() {
     gui = new dat.GUI();
 
-    gui.add(lightConfig, 'lightOsc', 0, 2000).onChange(function() {
+    gui.add(lightConfig, 'lightIntensity', 0, 500).onChange(function() {
 
-      lightRange = lightConfig.lightOsc;
+      lightIntensity= lightConfig.lightIntensity;
+      for(var i = 0; i < lights.length; i++){
+        debugger;
+        lights[i].sceneLight.distance = lightIntensity;
+      }
 
     });
   }
@@ -118,9 +126,9 @@ var World = function() {
       var nodeIndex = Math.floor(Math.random() * nodes.length);
       var node = nodes[nodeIndex];
       var randColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-      var light = new THREE.PointLight(randColor, 70, 100)
+      var light = new THREE.PointLight(randColor, lightIntensity, lightDistance)
       var lightPosition = new THREE.Vector3();
-      lightPosition.x = node.position.x + sphereRadius;
+      lightPosition.x = node.position.x;
       lightPosition.y = node.position.y;
       lightPosition.z = node.position.z;
       lights.push({
