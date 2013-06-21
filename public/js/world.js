@@ -12,6 +12,7 @@ var World = function() {
     theta = 0;
   var clock = new THREE.Clock();
   var flyMode = true;
+  var envMesh;
 
   var texture = THREE.ImageUtils.loadTexture('images/house.jpg', new THREE.UVMapping(), function() {
 
@@ -52,9 +53,9 @@ var World = function() {
     //   map: texture
     // }));
 
-    var mesh = new THREE.Mesh(new THREE.SphereGeometry(500, 60, 40), envMaterial);
-    mesh.scale.x = -1;
-    scene.add(mesh);
+    envMesh = new THREE.Mesh(new THREE.SphereGeometry(500, 60, 40), envMaterial);
+    envMesh.scale.x = -1;
+    scene.add(envMesh);
 
     renderer = new THREE.WebGLRenderer({
       antialias: true
@@ -66,14 +67,18 @@ var World = function() {
 
     document.body.appendChild(renderer.domElement);
 
-    //LIGHTS
-    var light1 = new THREE.AmbientLight(0xffffff, 50, 50);
-    scene.add(light1);
-    light1.position = new THREE.Vector3(10, 10, 10);
+    //LIGHTS 
+    scene.add(new THREE.AmbientLight(0xffffff));
 
-    var light2 = new THREE.PointLight(0xff00ff, 20, 50);
-    scene.add(light2);
-    light2.position = new THREE.Vector3(10, 10, 10);
+    var light = new THREE.PointLight(0xff00ff, 20, 50);
+    scene.add(light);
+    light.position = new THREE.Vector3(10, 10, 10);
+    var lightSphere = new THREE.SphereGeometry( 5.25, 16, 8 );
+    var l = new THREE.Mesh(lightSphere, new THREE.MeshBasicMaterial({
+      color: 0xff0000
+    }));
+    l.position = light.position;
+    scene.add(l);
 
     //CONTROLS
     controls = new THREE.FirstPersonControls(camera);
@@ -104,6 +109,10 @@ var World = function() {
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     camera.projectionMatrix.makePerspective(fov, window.innerWidth / window.innerHeight, 1, 1100);
+    controls.handleResize();
+    console.log('x', camera.position.x)
+    console.log('y', camera.position.y)
+    console.log('z', camera.position.z)
   }
 
   function onDocumentMouseDown(event) {
@@ -201,9 +210,12 @@ var World = function() {
     var sphereRadius = 20;
     var spacing = sphereRadius * 3;
     var sphere;
+    var begin = -1000;
+    var end = 1000
+
     var i = 1;
-    for (var x = -20; x < 400; x += spacing) {
-      sphere = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 30, 15 * i), shinyMaterial);
+    for (var x = begin; x < end; x += spacing) {
+      sphere = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 30* i, 15 * i), shinyMaterial);
       sphere.position.x = x;
       scene.add(sphere);
     }
