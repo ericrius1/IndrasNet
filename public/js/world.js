@@ -18,6 +18,11 @@ var World = function() {
   var nodes = [];
   var numLights = 10;
   var sphereRadius = 20;
+  var lightOscilationMod = 0;
+
+  var gui, lightConfig = {
+    lightOsc: 0.0
+  };
 
   init();
   animate();
@@ -74,11 +79,14 @@ var World = function() {
     //CONTROLS
     controls = new THREE.FirstPersonControls(camera);
 
-    controls.movementSpeed = 250;
+    controls.movementSpeed = .01;
     controls.lookSpeed = 0.2;
     controls.freeze;
 
     controls.lon = -90;
+
+    //DATGUI
+    guiSetup();
 
 
     createNodes();
@@ -89,10 +97,20 @@ var World = function() {
     document.body.appendChild(stats.domElement);
     window.addEventListener('resize', onWindowResized, false);
     document.addEventListener('mousewheel', onDocumentMouseWheel, false);
-       document.addEventListener('DOMMouseScroll', onDocumentMouseWheel, false);
+    document.addEventListener('DOMMouseScroll', onDocumentMouseWheel, false);
 
     onWindowResized(null);
 
+  }
+
+  function guiSetup() {
+    gui = new dat.GUI();
+
+    gui.add(lightConfig, 'lightOsc', 0, 2).onChange(function() {
+
+      lightOscilationMod = lightConfig.lightOsc;
+
+    });
   }
 
   function addLights() {
