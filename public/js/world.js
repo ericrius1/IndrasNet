@@ -16,8 +16,8 @@ var World = function() {
   var lights = [];
   var frameCounter = 0;
   var nodes = [];
-  var numLights = 20;
-  var sphereRadius = 20;
+  var numLights = 6;
+  var sphereRadius = 25;
   var lightRange = 0;
   var movementSpeed = 11;
   var lookSpeed = .05;
@@ -98,10 +98,10 @@ var World = function() {
 
     createNodes();
     addLights();
-    // stats = new Stats();
-    // stats.domElement.style.position = 'absolute';
-    // stats.domElement.style.top = '0px';
-    // document.body.appendChild(stats.domElement);
+    stats = new Stats();
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.top = '0px';
+    document.body.appendChild(stats.domElement);
     window.addEventListener('resize', onWindowResized, false);
     document.addEventListener('mousewheel', onDocumentMouseWheel, false);
     document.addEventListener('DOMMouseScroll', onDocumentMouseWheel, false);
@@ -185,7 +185,7 @@ var World = function() {
   function render() {
     time = Date.now() * .0004;
     var delta = clock.getDelta();
-    //stats.update();
+    stats.update();
 
     for (var i = 0; i < numLights; i++) {
       tempLight = lights[i];
