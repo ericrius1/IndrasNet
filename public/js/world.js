@@ -15,6 +15,9 @@ var World = function() {
   var envMesh;
   var light;
   var lights = [];
+  var frameCounter =  0;
+  var nodes = [];
+
 
   var texture = THREE.ImageUtils.loadTexture('images/house.jpg', new THREE.UVMapping(), function() {
 
@@ -72,9 +75,9 @@ var World = function() {
     //LIGHTS 
     scene.add(new THREE.AmbientLight(0xffffff));
 
-    
 
-    addLights();
+
+ 
 
 
 
@@ -88,7 +91,8 @@ var World = function() {
     controls.lon = -90;
 
 
-    createSpheres();
+    createNodes();
+    addLights();
     if (!flyMode) {
       document.addEventListener('mousedown', onDocumentMouseDown, false);
       document.addEventListener('mousewheel', onDocumentMouseWheel, false);
@@ -105,13 +109,19 @@ var World = function() {
   function addLights() {
     for (var i = 0; i < 10; i++) {
       //add lgihts
-      var light = new THREE.PointLight(0xff0011, 20, 70)
-      light.position.x = -200 + Math.random() * 400;
-      light.position.y = -200 + Math.random() * 400;
-      light.position.z = -200 + Math.random() * 400;
-      lights.push(light);
+      var nodeIndex = Math.floor(Math.random() * lights.length);
+      // var Node = 
+      var randColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+      var light = new THREE.PointLight(randColor, 20, 70, 100)
+      var lightPosition = new THREE.Vector3();
+      lightPosition.x = -300 + Math.random() * 600;
+      lightPosition.y = -300 + Math.random() * 600;
+      lightPosition.z = -300 + Math.random() * 600;
+      lights.push({
+        originalPosition: lightPosition,
+        sceneLight: light
+      });
       scene.add(light);
-
     }
   }
 
@@ -188,16 +198,19 @@ var World = function() {
     var time = Date.now() * 0.00025;
     var z = 20,
       d = 150;
+      frameCounter++;
 
     for (var i = 0; i < lights.length; i++) {
       var light = lights[i];
-      light.position.x = Math.sin(time * 0.7) * d 
-      light.position.z = Math.cos(time * 0.3) * d 
-      light.position.y = Math.cos(time * 0.3) * d;
+      light.sceneLight.position.x = Math.sin(time * 0.7) * d + light.originalPosition.x;
+      light.sceneLight.position.z = Math.cos(time * 0.3) * d + light.originalPosition.z;
+      light.sceneLight.position.y = Math.cos(time * 0.3) * d + light.originalPosition.y;
+
+      if(i === 0 && frameCounter% 10 === 0){
+        console.log(light.originalPosition)
+        
+      }
     }
-
-  
-
 
 
     // sphere1.visible = false; // *cough*
@@ -209,15 +222,15 @@ var World = function() {
 
   }
 
-  function createSpheres() {
+  function createNodes() {
     var cubeTarget = cubeCamera.renderTarget;
     var shinyMaterial = new THREE.MeshPhongMaterial({
       color: 0xffffff,
       ambient: 0xffffff,
       envMap: cubeTarget
     });
-    var sphereRadius = 20;
-    var spacing = sphereRadius * 5;
+    var sphereRadius = 25;
+    var spacing = sphereRadius * 4;
     var sphere;
     var begin = -300;
     var end = 300
@@ -230,6 +243,7 @@ var World = function() {
           sphere.position.x = x;
           sphere.position.y = y;
           sphere.position.z = z;
+          nodes.push(sphere);
           scene.add(sphere);
           i += .001;
         }
@@ -238,5 +252,4 @@ var World = function() {
 
     }
   }
-
 }
