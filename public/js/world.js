@@ -15,7 +15,7 @@ var World = function() {
   var envMesh;
   var light;
   var lights = [];
-  var frameCounter =  0;
+  var frameCounter = 0;
   var nodes = [];
 
 
@@ -77,10 +77,6 @@ var World = function() {
 
 
 
- 
-
-
-
     //CONTROLS
     controls = new THREE.FirstPersonControls(camera);
 
@@ -109,14 +105,14 @@ var World = function() {
   function addLights() {
     for (var i = 0; i < 10; i++) {
       //add lgihts
-      var nodeIndex = Math.floor(Math.random() * lights.length);
-      // var Node = 
-      var randColor = '#'+Math.floor(Math.random()*16777215).toString(16);
-      var light = new THREE.PointLight(randColor, 20, 70, 100)
+      var nodeIndex = Math.floor(Math.random() * nodes.length);
+      var node = nodes[nodeIndex];
+      var randColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      var light = new THREE.PointLight(randColor, 70, 100)
       var lightPosition = new THREE.Vector3();
-      lightPosition.x = -300 + Math.random() * 600;
-      lightPosition.y = -300 + Math.random() * 600;
-      lightPosition.z = -300 + Math.random() * 600;
+      lightPosition.x = node.position.x;
+      lightPosition.y = node.position.y;
+      lightPosition.z = node.position.z;
       lights.push({
         originalPosition: lightPosition,
         sceneLight: light
@@ -195,20 +191,19 @@ var World = function() {
   }
 
   function render() {
-    var time = Date.now() * 0.00025;
-    var z = 20,
-      d = 150;
-      frameCounter++;
+    var time = Date.now() * 0.0005;
+    var delta = clock.getDelta();
+    frameCounter++;
 
     for (var i = 0; i < lights.length; i++) {
       var light = lights[i];
-      light.sceneLight.position.x = Math.sin(time * 0.7) * d + light.originalPosition.x;
-      light.sceneLight.position.z = Math.cos(time * 0.3) * d + light.originalPosition.z;
-      light.sceneLight.position.y = Math.cos(time * 0.3) * d + light.originalPosition.y;
+      light.sceneLight.position.x = Math.sin( time * 0.7 ) * 30; + light.originalPosition.x;
+      light.sceneLight.position.y = Math.cos( time * 0.5 ) * 40 + light.originalPosition.y;
+      light.sceneLight.position.z = Math.cos( time * 0.3 ) * 30 + light.originalPosition.z;
 
-      if(i === 0 && frameCounter% 10 === 0){
+      if (i === 0 && frameCounter % 10 === 0) {
         console.log(light.originalPosition)
-        
+
       }
     }
 
