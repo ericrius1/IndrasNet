@@ -13,6 +13,7 @@ var World = function() {
   var clock = new THREE.Clock();
   var flyMode = true;
   var envMesh;
+  var light;
 
   var texture = THREE.ImageUtils.loadTexture('images/house.jpg', new THREE.UVMapping(), function() {
 
@@ -70,22 +71,19 @@ var World = function() {
     //LIGHTS 
     scene.add(new THREE.AmbientLight(0xffffff));
 
-    var light = new THREE.PointLight(0xff00ff, 20, 50);
+    light = new THREE.PointLight(0xff00ff, 40, 70);
     scene.add(light);
-    light.position = new THREE.Vector3(10, 10, 10);
-    var lightSphere = new THREE.SphereGeometry(5.25, 16, 8);
-    var l = new THREE.Mesh(lightSphere, new THREE.MeshBasicMaterial({
-      color: 0xff0000
-    }));
-    l.position = light.position;
-    scene.add(l);
+
+    light2 = new THREE.PointLight(0xe11e11, 40, 70);
+    scene.add(light2);
+
+
 
     //CONTROLS
     controls = new THREE.FirstPersonControls(camera);
 
     controls.movementSpeed = 250;
     controls.lookSpeed = 0.2;
-    controls.lookVertical = true;
     controls.freeze;
 
     controls.lon = -90;
@@ -93,7 +91,6 @@ var World = function() {
 
     createSpheres();
     if (!flyMode) {
-      debugger;
       document.addEventListener('mousedown', onDocumentMouseDown, false);
       document.addEventListener('mousewheel', onDocumentMouseWheel, false);
       document.addEventListener('DOMMouseScroll', onDocumentMouseWheel, false);
@@ -176,8 +173,17 @@ var World = function() {
   }
 
   function render() {
+    var time = Date.now() * 0.00025;
+    var z = 20,
+      d = 150;
 
-    var time = Date.now();
+    light.position.x = Math.sin(time * 0.7) * d;
+    light.position.z = Math.cos(time * 0.3) * d;
+    light.position.y = Math.cos(time * 0.3) * d;
+
+    light2.position.x = Math.sin(time * 0.7) * d + 100;
+    light2.position.z = Math.cos(time * 0.3) * d + 100;
+    light2.position.y = Math.cos(time * 0.3) * d + 100;
     // sphere1.visible = false; // *cough*
     cubeCamera.updateCubeMap(renderer, scene);
 
@@ -195,18 +201,23 @@ var World = function() {
       envMap: cubeTarget
     });
     var sphereRadius = 20;
-    var spacing = sphereRadius * 3;
+    var spacing = sphereRadius * 5;
     var sphere;
-    var begin = -100;
-    var end = 100
+    var begin = -300;
+    var end = 300
 
     var i = 1;
     for (var x = begin; x < end; x += spacing) {
       for (var y = begin; y < end; y += spacing) {
-        sphere = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 30 * i, 15 * i), shinyMaterial);
-        sphere.position.x = x;
-        //sphere.position.y = y;
-        scene.add(sphere);
+        for (var z = begin; z < end; z += spacing) {
+          sphere = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 30 * i, 15 * i), shinyMaterial);
+          sphere.position.x = x;
+          sphere.position.y = y;
+          sphere.position.z = z;
+          scene.add(sphere);
+          i += .001;
+        }
+
       }
 
     }
