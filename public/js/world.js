@@ -14,6 +14,7 @@ var World = function() {
   var flyMode = true;
   var envMesh;
   var light;
+  var lights = [];
 
   var texture = THREE.ImageUtils.loadTexture('images/house.jpg', new THREE.UVMapping(), function() {
 
@@ -71,11 +72,9 @@ var World = function() {
     //LIGHTS 
     scene.add(new THREE.AmbientLight(0xffffff));
 
-    light = new THREE.PointLight(0xff00ff, 40, 70);
-    scene.add(light);
+    
 
-    light2 = new THREE.PointLight(0xe11e11, 40, 70);
-    scene.add(light2);
+    addLights();
 
 
 
@@ -101,6 +100,16 @@ var World = function() {
 
     onWindowResized(null);
 
+  }
+
+  function addLights() {
+    for (var i = 0; i < 10; i++) {
+      //add lgihts
+      var light = new THREE.PointLight(0xff0011, 20, 70)
+      lights.push(light);
+      scene.add(light);
+
+    }
   }
 
   function onWindowResized(event) {
@@ -177,13 +186,17 @@ var World = function() {
     var z = 20,
       d = 150;
 
-    light.position.x = Math.sin(time * 0.7) * d;
-    light.position.z = Math.cos(time * 0.3) * d;
-    light.position.y = Math.cos(time * 0.3) * d;
+    for (var i = 0; i < lights.length; i++) {
+      var light = lights[i];
+      light.position.x = Math.sin(time * 0.7) * d + Math.random() * 100;
+      light.position.z = Math.cos(time * 0.3) * d + Math.random() * -100;
+      light.position.y = Math.cos(time * 0.3) * d;
+    }
 
-    light2.position.x = Math.sin(time * 0.7) * d + 100;
-    light2.position.z = Math.cos(time * 0.3) * d + 100;
-    light2.position.y = Math.cos(time * 0.3) * d + 100;
+  
+
+
+
     // sphere1.visible = false; // *cough*
     cubeCamera.updateCubeMap(renderer, scene);
 
