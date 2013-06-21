@@ -19,8 +19,8 @@ var World = function() {
   var numLights = 10;
   var sphereRadius = 20;
   var lightRange = 0;
-  var movementSpeed = .01;
-  var lookSpeed = .005;
+  var movementSpeed = 11;
+  var lookSpeed = .05;
   var lightIntensity= 11.0;
   var lightDistance = 108;
 
@@ -110,15 +110,15 @@ var World = function() {
   function guiSetup() {
     gui = new dat.GUI();
 
-    gui.add(lightConfig, 'lightIntensity', 0, 500).onChange(function() {
+    // gui.add(lightConfig, 'lightIntensity', 0, 500).onChange(function() {
 
-      lightIntensity= lightConfig.lightIntensity;
-      for(var i = 0; i < lights.length; i++){
-        debugger;
-        lights[i].sceneLight.distance = lightIntensity;
-      }
+    //   lightIntensity= lightConfig.lightIntensity;
+    //   for(var i = 0; i < lights.length; i++){
+    //     debugger;
+    //     lights[i].sceneLight.distance = lightIntensity;
+    //   }
 
-    });
+    // });
   }
 
   function addLights() {
