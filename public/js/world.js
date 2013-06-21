@@ -24,6 +24,7 @@ var World = function() {
   var lightIntensity= 11.0;
   var lightDistance = 133;
   var numNodes;
+  var tempNode;
   var time;
 
   var gui, lightConfig = {
@@ -195,6 +196,8 @@ var World = function() {
     }
 
     for(var i = 0; i < numNodes; i++){
+      tempNode = nodes[i];
+      tempNode.sphere.position.x = Math.sin(time)*100 + tempNode.originalPosition.x; 
 
     }
 
