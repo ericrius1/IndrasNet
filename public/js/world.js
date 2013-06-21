@@ -98,10 +98,10 @@ var World = function() {
 
     createNodes();
     addLights();
-    stats = new Stats();
-    stats.domElement.style.position = 'absolute';
-    stats.domElement.style.top = '0px';
-    document.body.appendChild(stats.domElement);
+    // stats = new Stats();
+    // stats.domElement.style.position = 'absolute';
+    // stats.domElement.style.top = '0px';
+    // document.body.appendChild(stats.domElement);
     window.addEventListener('resize', onWindowResized, false);
     document.addEventListener('mousewheel', onDocumentMouseWheel, false);
     document.addEventListener('DOMMouseScroll', onDocumentMouseWheel, false);
@@ -111,7 +111,7 @@ var World = function() {
   }
 
   function guiSetup() {
-    gui = new dat.GUI();
+    //gui = new dat.GUI();
 
     // gui.add(lightConfig, 'lightIntensity', 0, 500).onChange(function() {
 
@@ -185,7 +185,7 @@ var World = function() {
   function render() {
     time = Date.now() * .0006;
     var delta = clock.getDelta();
-    stats.update();
+    //stats.update();
 
     for (var i = 0; i < numLights; i++) {
       tempLight = lights[i];
