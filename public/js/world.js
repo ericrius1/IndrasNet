@@ -21,15 +21,15 @@ var World = function() {
   var lightRange = 0;
   var movementSpeed = 11;
   var lookSpeed = .05;
-  var lightIntensity= 11.0;
+  var lightIntensity = 11.0;
   var lightDistance = 133;
   var numNodes;
   var tempNode;
   var time;
 
   var gui, lightConfig = {
-    lightIntensity: lightIntensity
-  };
+      lightIntensity: lightIntensity
+    };
 
   init();
   animate();
@@ -195,11 +195,17 @@ var World = function() {
 
     }
 
-    for(var i = 0; i < numNodes; i++){
+    for (var i = 0; i < numNodes; i++) {
       tempNode = nodes[i];
-      tempNode.sphere.position.x = Math.sin(time*.5)*10 + tempNode.originalPosition.x; 
-      tempNode.sphere.position.y = Math.cos(time*.3)*10 + tempNode.originalPosition.y; 
-      tempNode.sphere.position.z = Math.cos(time*.7)*10 + tempNode.originalPosition.z; 
+      if (i % 2 === 0) {
+        tempNode.sphere.position.x = Math.sin(time * .2) * 3 + tempNode.originalPosition.x;
+        tempNode.sphere.position.y = Math.cos(time * .7) * 4 + tempNode.originalPosition.y;
+        tempNode.sphere.position.z = Math.cos(time * .3) * 2 + tempNode.originalPosition.z;
+      } else {
+        tempNode.sphere.position.x = Math.sin(time * .3) * 1 + tempNode.originalPosition.x;
+        tempNode.sphere.position.y = Math.cos(time * .4) * 3 + tempNode.originalPosition.y;
+        tempNode.sphere.position.z = Math.cos(time * .2) * 1 + tempNode.originalPosition.z;
+      }
 
     }
 
@@ -226,9 +232,12 @@ var World = function() {
       for (var y = begin; y < end; y += spacing) {
         for (var z = begin; z < end; z += spacing) {
           sphere = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 30, 15), shinyMaterial);
-          var position = new THREE.Vector3(x+Math.random()*20,y+Math.random()*20,z+Math.random()*20);
+          var position = new THREE.Vector3(x + Math.random() * 20, y + Math.random() * 20, z + Math.random() * 20);
           sphere.position.copy(position);
-          nodes.push({originalPosition: position, sphere: sphere});
+          nodes.push({
+            originalPosition: position,
+            sphere: sphere
+          });
           scene.add(sphere);
         }
 
