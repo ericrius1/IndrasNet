@@ -1,5 +1,5 @@
 var World = function() {
-  var camera, cubeCamera, cubeMap, scene, renderer, controls;
+  var camera, cubeCamera, cubeMap, scene, renderer, controls, stats;
   var fov = 70,
     isUserInteracting = false,
     onMouseDownMouseX = 0,
@@ -17,6 +17,8 @@ var World = function() {
   var lights = [];
   var frameCounter = 0;
   var nodes = [];
+  var numLights = 10;
+  var sphereRadius = 20;
 
 
   var texture = THREE.ImageUtils.loadTexture('images/house.jpg', new THREE.UVMapping(), function() {
@@ -54,9 +56,6 @@ var World = function() {
       envMap: cubemap
     });
 
-    // var mesh = new THREE.Mesh(new THREE.SphereGeometry(500, 60, 40), new THREE.MeshBasicMaterial({
-    //   map: texture
-    // }));
 
     envMesh = new THREE.Mesh(new THREE.SphereGeometry(500, 60, 40), envMaterial);
     envMesh.scale.x = -1;
@@ -66,6 +65,7 @@ var World = function() {
       antialias: true
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000);
     cubeCamera = new THREE.CubeCamera(1, 1000, 256);
     cubeCamera.renderTarget.minFilter = THREE.LinearMipMapLinearFilter;
     scene.add(cubeCamera);
@@ -95,7 +95,10 @@ var World = function() {
       document.addEventListener('DOMMouseScroll', onDocumentMouseWheel, false);
     }
 
-
+    stats = new Stats();
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.top = '0px';
+    document.body.appendChild(stats.domElement);
     window.addEventListener('resize', onWindowResized, false);
 
     onWindowResized(null);
@@ -103,16 +106,15 @@ var World = function() {
   }
 
   function addLights() {
-    for (var i = 0; i < 10; i++) {
-      //add lgihts
+    for (var i = 0; i < numLights; i++) {
       var nodeIndex = Math.floor(Math.random() * nodes.length);
       var node = nodes[nodeIndex];
       var randColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
       var light = new THREE.PointLight(randColor, 70, 100)
       var lightPosition = new THREE.Vector3();
-      lightPosition.x = node.position.x;
+      lightPosition.x = node.position.x + sphereRadius;
       lightPosition.y = node.position.y;
-      lightPosition.z = node.position.z;
+      lightPosition.z = node.position.z; 
       lights.push({
         originalPosition: lightPosition,
         sceneLight: light
@@ -126,9 +128,6 @@ var World = function() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     camera.projectionMatrix.makePerspective(fov, window.innerWidth / window.innerHeight, 1, 1100);
     controls.handleResize();
-    console.log('x', camera.position.x)
-    console.log('y', camera.position.y)
-    console.log('z', camera.position.z)
   }
 
   function onDocumentMouseDown(event) {
@@ -194,17 +193,14 @@ var World = function() {
     var time = Date.now() * 0.0005;
     var delta = clock.getDelta();
     frameCounter++;
+    stats.update();
 
-    for (var i = 0; i < lights.length; i++) {
+    for (var i = 0; i < numLights; i++) {
       var light = lights[i];
-      light.sceneLight.position.x = Math.sin( time * 0.7 ) * 30; + light.originalPosition.x;
-      light.sceneLight.position.y = Math.cos( time * 0.5 ) * 40 + light.originalPosition.y;
-      light.sceneLight.position.z = Math.cos( time * 0.3 ) * 30 + light.originalPosition.z;
+      light.sceneLight.position.x = Math.sin(time * 0.7) * 10 + light.originalPosition.x;
+      light.sceneLight.position.y = Math.cos(time * 0.5) * 10+ light.originalPosition.y;
+      light.sceneLight.position.z = Math.cos(time * 0.3)* 10 + light.originalPosition.z;
 
-      if (i === 0 && frameCounter % 10 === 0) {
-        console.log(light.originalPosition)
-
-      }
     }
 
 
@@ -224,23 +220,20 @@ var World = function() {
       ambient: 0xffffff,
       envMap: cubeTarget
     });
-    var sphereRadius = 25;
     var spacing = sphereRadius * 4;
     var sphere;
-    var begin = -300;
-    var end = 300
+    var begin = -400;
+    var end = 400
 
-    var i = 1;
     for (var x = begin; x < end; x += spacing) {
       for (var y = begin; y < end; y += spacing) {
         for (var z = begin; z < end; z += spacing) {
-          sphere = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 30 * i, 15 * i), shinyMaterial);
+          sphere = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 30, 15), shinyMaterial);
           sphere.position.x = x;
           sphere.position.y = y;
           sphere.position.z = z;
           nodes.push(sphere);
           scene.add(sphere);
-          i += .001;
         }
 
       }
