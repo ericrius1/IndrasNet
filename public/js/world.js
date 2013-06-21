@@ -197,7 +197,9 @@ var World = function() {
 
     for(var i = 0; i < numNodes; i++){
       tempNode = nodes[i];
-      tempNode.sphere.position.x = Math.sin(time)*100 + tempNode.originalPosition.x; 
+      tempNode.sphere.position.x = Math.sin(time*.5)*10 + tempNode.originalPosition.x; 
+      tempNode.sphere.position.y = Math.cos(time*.3)*10 + tempNode.originalPosition.y; 
+      tempNode.sphere.position.z = Math.cos(time*.7)*10 + tempNode.originalPosition.z; 
 
     }
 
