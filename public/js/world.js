@@ -16,7 +16,7 @@ var World = function() {
   var lights = [];
   var frameCounter = 0;
   var nodes = [];
-  var numLights = 5;
+  var numLights = 20;
   var sphereRadius = 20;
   var lightRange = 0;
   var movementSpeed = 11;
@@ -199,7 +199,7 @@ var World = function() {
       tempNode = nodes[i];
       if (i % 2 === 0) {
         tempNode.sphere.position.x = Math.sin(time * .2) * 3 + tempNode.originalPosition.x;
-        tempNode.sphere.position.y = Math.cos(time * .7) * 4 + tempNode.originalPosition.y;
+        tempNode.sphere.position.y = Math.cos(time * .5) * 5 + tempNode.originalPosition.y;
         tempNode.sphere.position.z = Math.cos(time * .3) * 2 + tempNode.originalPosition.z;
       } else {
         tempNode.sphere.position.x = Math.sin(time * .3) * 1 + tempNode.originalPosition.x;
