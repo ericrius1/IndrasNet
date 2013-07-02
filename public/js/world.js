@@ -16,7 +16,7 @@ var World = function() {
   var lights = [];
   var frameCounter = 0;
   var nodes = [];
-  var numLights = 4;
+  var numLights = 3;
   var sphereRadius = 30;
   var lightRange = 0;
   var movementSpeed = 111;
@@ -130,13 +130,14 @@ var World = function() {
       var node = nodes[nodeIndex];
       var randColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
       var light = new THREE.PointLight(randColor, lightIntensity, lightDistance)
+      var redLight = new THREE.PointLight(0xff0000, lightIntensity, lightDistance);
       var lightPosition = new THREE.Vector3();
       lightPosition.x = node.originalPosition.x;
       lightPosition.y = node.originalPosition.y;
       lightPosition.z = node.originalPosition.z;
       lights.push({
         originalPosition: lightPosition,
-        sceneLight: light
+        sceneLight: redLight
       });
       scene.add(light);
     }
