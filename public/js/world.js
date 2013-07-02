@@ -23,6 +23,7 @@ var World = function() {
   var lookSpeed = .2;
   var lightIntensity = 11.0;
   var lightDistance = 155;
+  var introTime = 10000;
   var numNodes;
   var tempNode;
   var time;
@@ -30,11 +31,21 @@ var World = function() {
   var gui, lightConfig = {
       lightIntensity: lightIntensity
     };
+  var text = "Imagine a multidimensional spider's web in the early morning covered with dew drops.\
+      And every dew drop contains the reflection of all the other dew drops. \
+      And, in each reflected dew drop, the reflections of all the other dew drops in that reflection.\
+      And so ad infinitum. That is the Buddhist conception of the universe in an image. -Alan Watts";
+    $('#imagine').text(text);
+    $('#imagine').fadeOut(introTime);
 
-  init();
-  animate();
+  setTimeout(function(){
+    init();
+    animate();
+  }, introTime);
+
 
   function init() {
+
 
     camera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 1, 1000);
 
