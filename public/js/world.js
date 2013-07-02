@@ -72,7 +72,7 @@ var World = function() {
     cubeCamera.renderTarget.minFilter = THREE.LinearMipMapLinearFilter;
     scene.add(cubeCamera);
 
-    document.body.appendChild(renderer.domElement);
+
 
     //LIGHTS 
     scene.add(new THREE.AmbientLight(0xffffff));
@@ -98,6 +98,8 @@ var World = function() {
     document.addEventListener('DOMMouseScroll', onDocumentMouseWheel, false);
 
     onWindowResized(null);
+
+  this.renderer = renderer;
 
   }
 
@@ -228,4 +230,6 @@ var World = function() {
 
   this.init = init;
   this.animate = animate;
+
+  return this;
 }
