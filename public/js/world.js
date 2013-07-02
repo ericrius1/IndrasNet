@@ -23,29 +23,14 @@ var World = function() {
   var lookSpeed = .2;
   var lightIntensity = 11.0;
   var lightDistance = 155;
-  var introTime = 10000;
   var numNodes;
   var tempNode;
   var time;
 
-  var gui, lightConfig = {
-      lightIntensity: lightIntensity
-    };
-  var text = "Imagine a multidimensional spider's web in the early morning covered with dew drops.\
-      And every dew drop contains the reflection of all the other dew drops. \
-      And, in each reflected dew drop, the reflections of all the other dew drops in that reflection.\
-      And so ad infinitum. That is the Buddhist conception of the universe in an image. -Alan Watts";
-    $('#imagine').fadeIn(introTime).text(text);
-    $('#imagine').fadeOut(introTime);
-
-  setTimeout(function(){
-    init();
-    animate();
-  }, introTime);
-
+  init();
+  animate();
 
   function init() {
-
 
     camera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 1, 1000);
 
@@ -103,16 +88,11 @@ var World = function() {
 
     controls.lon = -90;
 
-    //DATGUI
-    guiSetup();
 
 
     createNodes();
     addLights();
-    // stats = new Stats();
-    // stats.domElement.style.position = 'absolute';
-    // stats.domElement.style.top = '0px';
-    // document.body.appendChild(stats.domElement);
+
     window.addEventListener('resize', onWindowResized, false);
     document.addEventListener('mousewheel', onDocumentMouseWheel, false);
     document.addEventListener('DOMMouseScroll', onDocumentMouseWheel, false);
@@ -121,19 +101,6 @@ var World = function() {
 
   }
 
-  function guiSetup() {
-    //gui = new dat.GUI();
-
-    // gui.add(lightConfig, 'lightIntensity', 0, 500).onChange(function() {
-
-    //   lightIntensity= lightConfig.lightIntensity;
-    //   for(var i = 0; i < lights.length; i++){
-    //     debugger;
-    //     lights[i].sceneLight.distance = lightIntensity;
-    //   }
-
-    // });
-  }
 
   function addLights() {
     for (var i = 0; i < numLights; i++) {

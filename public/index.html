@@ -13,11 +13,12 @@
 
 <style>
  body {
-  font-size: 1em;
+  font-size: 2em;
   line-height: 1.5; 
   font-family: 'Helvetica Neue', Helvetica, Arial, serif;
   color: #ffffff;
-  background: #000000;
+  background-color: #000000;
+
 }
 
 canvas{
@@ -27,13 +28,32 @@ canvas{
 </style>
 
 <body>
-  <div id = "imagine"></div>
 
-  <audio src="audio/moonlight.mp3" autoplay></audio>
+  <audio id= "song" src="audio/moonlight.mp3" onCanPlay = "playSong()"></audio>
 
 </body>
 
 
 <script> 
-  var world = new World();
+  var introTime = 13000;
+  var playSong = function(){
+    var song = document.getElementById("song");
+    song.play();
+
+    var text = "Imagine a multidimensional spider's web in the early morning covered with dew drops.\
+          And every dew drop contains the reflection of all the other dew drops. \
+          And, in each reflected dew drop, the reflections of all the other dew drops in that reflection.\
+          And so ad infinitum. That is the Buddhist conception of the universe in an image. -Alan Watts";
+    $imagine = $('<div id = "imagine"></div>');
+    $imagine.text(text);
+    $('body').append($imagine).hide().fadeIn(introTime / 2, function() {
+      $imagine.fadeOut(introTime / 2);
+    });
+    setTimeout(function() {
+      var world = new World();
+        
+    }, introTime);
+  }
+
+
 </script>
