@@ -36,6 +36,9 @@ canvas{
 
 <script> 
   var introTime = 13000;
+  var world = new World();
+  world.init();
+  world.animate();
   var playSong = function(){
     var song = document.getElementById("song");
     song.play();
@@ -50,7 +53,7 @@ canvas{
       $imagine.fadeOut(introTime / 2);
     });
     setTimeout(function() {
-      var world = new World();
+      
         
     }, introTime);
   }

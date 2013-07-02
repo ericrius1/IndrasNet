@@ -26,11 +26,11 @@ var World = function() {
   var numNodes;
   var tempNode;
   var time;
+  var self;
 
-  init();
-  animate();
 
   function init() {
+    self = this;
 
     camera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 1, 1000);
 
@@ -156,7 +156,7 @@ var World = function() {
 
   function animate() {
 
-    requestAnimationFrame(animate);
+    requestAnimationFrame(self.animate);
     render();
 
   }
@@ -225,4 +225,7 @@ var World = function() {
     }
     numNodes = nodes.length;
   }
+
+  this.init = init;
+  this.animate = animate;
 }
