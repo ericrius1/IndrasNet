@@ -35,7 +35,7 @@ var World = function() {
       And every dew drop contains the reflection of all the other dew drops. \
       And, in each reflected dew drop, the reflections of all the other dew drops in that reflection.\
       And so ad infinitum. That is the Buddhist conception of the universe in an image. -Alan Watts";
-    $('#imagine').text(text);
+    $('#imagine').fadeIn(introTime).text(text);
     $('#imagine').fadeOut(introTime);
 
   setTimeout(function(){
