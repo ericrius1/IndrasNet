@@ -20,6 +20,10 @@
   background-color: #000000;
 
 }
+#Watts {
+  position: absolute;
+  right: 20%;
+}
 
 canvas{
   position:absolute
@@ -43,14 +47,13 @@ canvas{
     var song = document.getElementById("song");
     song.play();
 
-    var text = "Imagine a multidimensional spider's web in the early morning covered with dew drops.\
+    var text = 
+    $imagine = $("<div>Imagine a multidimensional spider's web in the early morning covered with dew drops.\
           And every dew drop contains the reflection of all the other dew drops. \
           And, in each reflected dew drop, the reflections of all the other dew drops appear in that reflection.\
-          And so ad infinitum. That is the Buddhist conception of the universe in an image. -Alan Watts";
-    $imagine = $('<div id = "imagine"></div>');
-    $imagine.text(text);
+          And so ad infinitum. That is the Buddhist conception of the universe in an image.</div><h2 id ='Watts'>Alan Watts</h2>");
     $('body').append($imagine);
-      $imagine.fadeOut(introTime + 2000);
+      $imagine.fadeOut(introTime + 4000);
     setTimeout(function() {
       $imagine.hide();
       document.body.appendChild(world.renderer.domElement);
