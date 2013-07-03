@@ -168,7 +168,6 @@ var World = function() {
 
     for (var i = 0; i < numLights; i++) {
       tempLight = lights[i];
-      console.log(tempLight.originalPosition.x);
       tempLight.sceneLight.position.x = Math.sin(time*.5) * 111 + tempLight.originalPosition.x;
       tempLight.sceneLight.position.y = Math.cos(time*.5) * 111 + tempLight.originalPosition.y;
       tempLight.sceneLight.position.z = Math.cos(time*.5) * 111 + tempLight.originalPosition.z;
