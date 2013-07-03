@@ -19,7 +19,7 @@ var World = function() {
   var numLights = 3;
   var sphereRadius = 30;
   var lightRange = 0;
-  var movementSpeed = 111;
+  var movementSpeed = 88;
   var lookSpeed = .2;
   var lightIntensity = 33.0;
   var lightDistance = 200;
@@ -57,6 +57,8 @@ var World = function() {
       color: 0xffffff,
       envMap: cubemap
     });
+
+    var loader = new THREE.JSONLoader();
 
 
     envMesh = new THREE.Mesh(new THREE.SphereGeometry(500, 60, 40), envMaterial);
