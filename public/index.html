@@ -43,14 +43,14 @@ canvas{
 
 
 <script> 
-  var introTime = 200;
+  var introTime = 13600;
   //13600
   var world = new World();
   world.init();
   world.animate();
   var playSong = function(){
     var song = document.getElementById("song");
-    //song.play();
+    song.play();
 
     var text = 
     $imagine = $("<div class = 'quote'>Imagine a multidimensional spider's web in the early morning covered with dew drops.\
@@ -58,7 +58,10 @@ canvas{
           And, in each reflected dew drop, the reflections of all the other dew drops appear in that reflection.\
           And so ad infinitum. That is the Buddhist conception of the universe in an image. <h2 id ='Watts'>Alan Watts</h2></div>");
     $('body').append($imagine);
-      $imagine.fadeOut(introTime + 4000);
+       setTimeout(function() {
+      $imagine.fadeOut(introTime- 11111);
+    }, 11111);
+      
     setTimeout(function() {
       $imagine.hide();
       document.body.appendChild(world.renderer.domElement);

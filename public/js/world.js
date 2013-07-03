@@ -19,7 +19,7 @@ var World = function() {
   var numLights = 3;
   var sphereRadius = 30;
   var lightRange = 0;
-  var movementSpeed = 88;
+  var movementSpeed = 77;
   var lookSpeed = .2;
   var lightIntensity = 33.0;
   var lightDistance = 200;
@@ -58,9 +58,21 @@ var World = function() {
       envMap: cubemap
     });
 
+    //MODELS
     var loader = new THREE.JSONLoader();
 
+    var startX = -3000;
 
+    loader.load("models/parrot.js", function(geometry) {
+
+      morphColorsToFaceColors(geometry);
+      addMorph(geometry, 250, 500, startX - 500, 500, 700);
+      addMorph(geometry, 250, 500, startX - Math.random() * 500, 500, -200);
+      addMorph(geometry, 250, 500, startX - Math.random() * 500, 500, 200);
+      addMorph(geometry, 250, 500, startX - Math.random() * 500, 500, 1000);
+    });
+
+    //ENVIRONMENT MAP
     envMesh = new THREE.Mesh(new THREE.SphereGeometry(500, 60, 40), envMaterial);
     envMesh.scale.x = -1;
     scene.add(envMesh);
@@ -101,7 +113,7 @@ var World = function() {
 
     onWindowResized(null);
 
-  this.renderer = renderer;
+    this.renderer = renderer;
 
   }
 
@@ -170,9 +182,9 @@ var World = function() {
 
     for (var i = 0; i < numLights; i++) {
       tempLight = lights[i];
-      tempLight.sceneLight.position.x = Math.sin(time*.5) * 111 + tempLight.originalPosition.x;
-      tempLight.sceneLight.position.y = Math.cos(time*.5) * 111 + tempLight.originalPosition.y;
-      tempLight.sceneLight.position.z = Math.cos(time*.5) * 111 + tempLight.originalPosition.z;
+      tempLight.sceneLight.position.x = Math.sin(time * .5) * 111 + tempLight.originalPosition.x;
+      tempLight.sceneLight.position.y = Math.cos(time * .5) * 111 + tempLight.originalPosition.y;
+      tempLight.sceneLight.position.z = Math.cos(time * .5) * 111 + tempLight.originalPosition.z;
 
     }
 
