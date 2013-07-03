@@ -1,4 +1,4 @@
-IndrasNet
+Indra's Net
 =========
 An interactive 3D visualization of the Buddhist/Jedi concept of interdependence and interpenetration.
 
@@ -8,7 +8,7 @@ Move mouse to edges of screen to look around the world
 ACKNOWLEDGEMENTS
 --------------------
 
-I couldn't have made this without a ton of cool stuff from so many people:
+I couldn't have made this without the inspiration and example code provided by the following people:
 
 Music: "Moonlight" by Rameses B
 
