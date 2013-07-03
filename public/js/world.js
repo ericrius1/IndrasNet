@@ -21,8 +21,8 @@ var World = function() {
   var lightRange = 0;
   var movementSpeed = 111;
   var lookSpeed = .2;
-  var lightIntensity = 11.0;
-  var lightDistance = 155;
+  var lightIntensity = 33.0;
+  var lightDistance = 200;
   var numNodes;
   var tempNode;
   var time;
@@ -110,14 +110,13 @@ var World = function() {
       var node = nodes[nodeIndex];
       var randColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
       var light = new THREE.PointLight(randColor, lightIntensity, lightDistance)
-      var redLight = new THREE.PointLight(0xff0000, lightIntensity, lightDistance);
       var lightPosition = new THREE.Vector3();
       lightPosition.x = node.originalPosition.x;
       lightPosition.y = node.originalPosition.y;
       lightPosition.z = node.originalPosition.z;
       lights.push({
         originalPosition: lightPosition,
-        sceneLight: redLight
+        sceneLight: light
       });
       scene.add(light);
     }
@@ -166,13 +165,13 @@ var World = function() {
   function render() {
     time = Date.now() * .0004;
     var delta = clock.getDelta();
-    // stats.update();
 
     for (var i = 0; i < numLights; i++) {
       tempLight = lights[i];
-      tempLight.sceneLight.position.x = Math.sin(time) * 111 + tempLight.originalPosition.x;
-      tempLight.sceneLight.position.y = Math.cos(time) * 111 + tempLight.originalPosition.y;
-      tempLight.sceneLight.position.z = Math.cos(time) * 111 + tempLight.originalPosition.z;
+      console.log(tempLight.originalPosition.x);
+      tempLight.sceneLight.position.x = Math.sin(time*.5) * 111 + tempLight.originalPosition.x;
+      tempLight.sceneLight.position.y = Math.cos(time*.5) * 111 + tempLight.originalPosition.y;
+      tempLight.sceneLight.position.z = Math.cos(time*.5) * 111 + tempLight.originalPosition.z;
 
     }
 
