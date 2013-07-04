@@ -20,7 +20,7 @@ var World = function() {
   var sphereRadius = 30;
   var lightRange = 0;
   var movementSpeed = 77;
-  var lookSpeed = .2;
+  var lookSpeed = .11;
   var lightIntensity = 33.0;
   var lightDistance = 200;
   var numNodes;
