@@ -58,19 +58,8 @@ var World = function() {
       envMap: cubemap
     });
 
-    //MODELS
-    var loader = new THREE.JSONLoader();
 
-    var startX = -3000;
 
-    loader.load("models/parrot.js", function(geometry) {
-
-      morphColorsToFaceColors(geometry);
-      addMorph(geometry, 250, 500, startX - 500, 500, 700);
-      addMorph(geometry, 250, 500, startX - Math.random() * 500, 500, -200);
-      addMorph(geometry, 250, 500, startX - Math.random() * 500, 500, 200);
-      addMorph(geometry, 250, 500, startX - Math.random() * 500, 500, 1000);
-    });
 
     //ENVIRONMENT MAP
     envMesh = new THREE.Mesh(new THREE.SphereGeometry(500, 60, 40), envMaterial);
